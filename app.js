@@ -28,6 +28,7 @@ search.addEventListener("keypress", function (event) {
 
 // show images 
 const showImages = (images) => {
+  spinnerItem();
   imagesArea.style.display = 'block';
   gallery.innerHTML = '';
   // show gallery title
@@ -41,9 +42,14 @@ const showImages = (images) => {
 
 }
 
+const spinnerItem = () => {
+  const spinner = document.getElementById('spinner-item');
+  spinner.classList.toggle('d-none');
+
+}
 
 const getImages = (query) => {
-
+  spinnerItem();
   fetch(`https://pixabay.com/api/?key=${KEY}=${query}&image_type=photo&pretty=true`)
     .then(response => response.json())
     .then(data => showImages(data.hits))
@@ -134,8 +140,9 @@ searchBtn.addEventListener('click', function () {
   document.querySelector('.main').style.display = 'none';
   clearInterval(timer);
   const search = document.getElementById('search');
+  
   //get image function call
-  getImages(search.value)
+  getImages(search.value);
   sliders.length = 0;
 })
 
@@ -148,7 +155,6 @@ sliderBtn.addEventListener('click', function () {
     createSlider();
   }
   else {
-
     createSlider();
   }
 })
