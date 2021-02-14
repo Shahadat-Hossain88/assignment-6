@@ -36,10 +36,11 @@ const showImages = (images) => {
     let div = document.createElement('div');
     div.className = 'col-lg-3 col-md-4 col-xs-6 img-item mb-2';
     div.innerHTML = ` <img class="img-fluid img-thumbnail" onclick=selectItem(event,"${image.webformatURL}") src="${image.webformatURL}" alt="${image.tags}">`;
-    gallery.appendChild(div)
+    gallery.appendChild(div);
   })
 
 }
+
 
 const getImages = (query) => {
 
@@ -52,27 +53,17 @@ const getImages = (query) => {
 let slideIndex = 0;
 const selectItem = (event, img) => {
   let element = event.target;
-  element.classList.add('added');
-
+  element.classList.toggle('added');
   let item = sliders.indexOf(img);
-
+  console.log(item);
 
   if (item === -1) {
     sliders.push(img);
-
-  } else {
-    const sliders = document.getElementById("selectItem");
-    sliders.classList.toggle('d-none');
-
-    console.log(sliders.classList);
+  } 
+  else {
+    delete sliders[item];
   }
-
 }
-
-// const toggleItem =() => {
-//   const select =document.getElementById("selectItem");
-//   select.classList.toggle('d-none');
-// }
 var timer
 const createSlider = () => {
   // check slider image length
@@ -93,15 +84,6 @@ const createSlider = () => {
   document.querySelector('.main').style.display = 'block';
   // hide image aria
   imagesArea.style.display = 'none';
-  // let duration = document.getElementById('duration').value || 1000;
-  // if(duration<0){
-  //   alert('Give positive number !');
-  // }
-  // else{
-
-  // }
-
-  console.log('in function', duration.value);
   sliders.forEach(slide => {
     let item = document.createElement('div')
     item.className = "slider-item";
@@ -158,8 +140,6 @@ searchBtn.addEventListener('click', function () {
 })
 
 sliderBtn.addEventListener('click', function () {
-  //  createSlider()
-  console.log(duration.value);
   if (duration.value < 0) {
 
     alert('Give positive number !');
